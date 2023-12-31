@@ -1,0 +1,16 @@
+.avatar_wrapper{
+    width: 110px;
+    height: 110px;
+    border: 4px solid #F44336;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.avatar_image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}

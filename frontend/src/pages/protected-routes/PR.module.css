@@ -1,0 +1,47 @@
+.heading {
+    position: relative;
+}
+
+.heading::after{
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60%;
+    height: 4px;
+    background-color: #F44336;
+}
+
+.clientwrapper{
+    background: #1d1d1d;
+    margin-top: 4rem;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    min-height: calc(100vh - 250px);
+    padding: 2rem;
+}
+
+.clientList{
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.micBtn{
+    background: #212121;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 25px;
+    height: 25px;
+    box-sizing: content-box;
+    border-radius: 30px;
+    padding: 5px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.userHead{
+    border: 3px solid #5453e0;
+}

@@ -1,0 +1,35 @@
+.card {
+    background: #1d1d1d;
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.speakers {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    margin: 20px 0;
+}
+
+.singleSpeaker .avatars img{
+    position: initial;
+}
+
+.avatars img {
+    width: 43px;
+    height: 43px;
+    border-radius: 50%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #1d1d1d;
+}
+
+.avatars img:last-child {
+    top: 20px;
+    left: 20px;
+}
+

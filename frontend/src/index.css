@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background: #121212;
+  font-family: "Nunito", sans-serif;
+  color: #fff;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Style the scrollbar */
+::-webkit-scrollbar {
+  width: 5px; /* width of the scrollbar */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #323232; /* color of the track */
+}
+
+/* Thumb */
+::-webkit-scrollbar-thumb {
+  background: rgb(244, 56, 85); /* color of the thumb */
+  border-radius: 10px; /* roundness of the thumb */
+}
+
+/* On hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(244, 56, 85); /* color of the thumb on hover */
+}
+
+.animation-hover:after {
+  background: none repeat scroll 0 0 transparent;
+  content: "";
+  height: 2px;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  @apply w-0 bg-orange-500 left-1/2 block bottom-0 absolute;
+}
+.animation-active:after {
+  @apply left-0 w-full;
+}
+.animation-hover:hover:after {
+  @apply left-0 w-full;
+}
