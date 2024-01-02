@@ -10,7 +10,7 @@ const socketInit = () => {
         transports : ['websocket'],
     }
 
-    return io('https://api-vegfru.online', options);
+    return io(`${process.env.REACT_APP_ENDPOINT}`, options);
 }
 
 export default socketInit
