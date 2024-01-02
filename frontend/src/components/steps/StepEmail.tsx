@@ -26,7 +26,7 @@ const StepEmail: React.FC<IStepsCompo> = ({ onNext }) => {
       enqueueSnackbar(' ✅ OTP Sent !')
       onNext();
     } catch (error: any) {
-      enqueueSnackbar(error.response.data.message, {
+      enqueueSnackbar(error.response?.data.message, {
         variant: "error"
       })
     }

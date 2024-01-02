@@ -23,7 +23,7 @@ connectDB();
 app.use(cookieParser());
 const corsOptions = {
     credentials: true,
-    origin: ['http://localhost:3000'],
+    origin: ['https://jampod-c92d9.web.app', 'http://localhost:3000'],
 
 }
 app.use(cors(corsOptions));
@@ -33,7 +33,7 @@ app.use('/storage', express.static('storage'));
 
 // Root Endpoint
 app.get("/", (req, res) => {
-    res.send("Hello from JamPod server!");
+    res.json({message: "Hello from JamPod server!"});
 })
 
 // Other Endpoints
