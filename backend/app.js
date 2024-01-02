@@ -23,7 +23,7 @@ connectDB();
 app.use(cookieParser());
 const corsOptions = {
     credentials: true,
-    origin: ['https://jampod-c92d9.web.app', 'http://localhost:3000'],
+    origin: ['https://jampod.vercel.app', 'http://localhost:3000'],
 
 }
 app.use(cors(corsOptions));
