@@ -3,8 +3,6 @@ const express = require("express");
 const app = express();
 const connectDB = require("./database");
 const cookieParser = require("cookie-parser");
-const cors = require("cors");
-const morgan = require("morgan");
 const server = require('http').createServer(app);
 const ACTIONS = require('./actions');
 
@@ -20,13 +18,17 @@ connectDB();
 
 
 // middlewares 
-app.use(cookieParser());
-const corsOptions = {
-    credentials: true,
-    origin: ['https://jampod.vercel.app', 'http://localhost:3000'],
+// allowed domains
+const allowedOrigins = ['http://localhost:3000', 'https://jampod.vercel.app'];
 
-}
-app.use(cors(corsOptions));
+// middleware
+const cors = require("cors");
+app.use(cors({
+    credentials: true,
+    origin: allowedOrigins
+}));
+
+app.use(cookieParser());
 app.use(express.json({ limit: '8mb' }));
 // app.use(morgan("dev"));
 app.use('/storage', express.static('storage'));
