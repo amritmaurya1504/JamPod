@@ -1,0 +1,31 @@
+version: '3'
+services:
+  backend:
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./server/
+    container_name: jampod_server
+    restart: always
+    ports:
+      - "5500:5500"
+    env_file:
+      - ./server/.env.dev
+    volumes:
+      - ./server:/backend
+      - /server/node_modules
+  frontend:
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./
+    container_name: jampod_frontend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./frontend/.env
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - backend
