@@ -10,7 +10,7 @@ const socketInit = () => {
         transports : ['websocket'],
     }
 
-    return io('http://localhost:5500', options);
+    return io('https://api-vegfru.online', options);
 }
 
 export default socketInit
