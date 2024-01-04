@@ -18,14 +18,14 @@ connectDB();
 
 
 // middlewares 
-// allowed domains
-const allowedOrigins = ['http://localhost:3000', 'https://jampod.vercel.app'];
+
 
 // middleware
 const cors = require("cors");
+
 app.use(cors({
     credentials: true,
-    origin: allowedOrigins
+    origin: ['https://jampod.vercel.app/', 'http://localhost:3000']
 }));
 
 app.use(cookieParser());

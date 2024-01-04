@@ -4,13 +4,12 @@ import { ISocketOptions } from "../types";
 
 const socketInit = () => {
     const options:ISocketOptions = {
-        'force new connection' : true,
-        reconnectionAttempt: 'Infinity',
+        reconnectionAttempts: Infinity,
         timeout: 10000,
         transports : ['websocket'],
     }
 
-    return io(`${process.env.REACT_APP_ENDPOINT}`, options);
+    return io("https://jampod.onrender.com", options);
 }
 
 export default socketInit

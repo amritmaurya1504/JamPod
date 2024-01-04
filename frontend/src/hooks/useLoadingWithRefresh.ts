@@ -16,6 +16,7 @@ export const useLoadingWithRefresh = (): IUseLoadingResult => {
     // immediately invoke function
     (async (): Promise<void> => {
       try {
+        alert("Currently Backend server is down!")
         const { data }: AxiosResponse<IUser> = await axios.get(
           `${process.env.REACT_APP_ENDPOINT}/api/v1/refresh`,
           {

@@ -122,8 +122,7 @@ export interface ITextInput {
 }
 
 export interface ISocketOptions {
-  'force new connection'?: boolean;
-  reconnectionAttempt?: number | 'Infinity';
+  reconnectionAttempts?:any;
   timeout?: number;
   transports?: string[];
 }

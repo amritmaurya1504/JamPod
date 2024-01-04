@@ -14,7 +14,7 @@ const GetStarted = () => {
       <Navigation />
       <div className='flex items-center justify-center mt-24'>
         <Card title="Welcome to JamPod!" icon="images/small_logo.png">
-          <p className='leading-[1.6] text-sm md:text-[16px] text-white-400 mb-8'>We’re working hard to get Codershouse ready for everyone! While we wrap up the finishing youches, we’re adding people gradually to make sure nothing breaks :)</p>
+          <p className='leading-[1.6] text-sm md:text-[16px] text-white-400 mb-8'>We’re working hard to get JamPod ready for everyone! While we wrap up the finishing youches, we’re adding people gradually to make sure nothing breaks :)</p>
           <div>
             <Button title="Let's Go" icon="arrow-forward.png" onClick={handleRegister} />
           </div>
