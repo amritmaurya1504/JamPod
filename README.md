@@ -27,6 +27,8 @@ Experience the fusion of live jams and insightful podcasts in one dynamic platfo
 | OTP Authentication| One-Time Password authentication for security.    |
 | Tailwind CSS      | Utility-first CSS framework for rapid styling.     |
 
+### OTP Authentication Flow
+https://miro.com/app/board/uXjVNA26_Hw=/?share_link_id=463117396825
 
 ## Screenshots
 
