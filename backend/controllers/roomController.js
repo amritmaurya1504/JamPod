@@ -26,9 +26,12 @@ class RoomController {
 
     index = expressAsyncHandler(async (req, res) => {
         try {
-            const rooms = await roomService.getAllRooms(['open']);
+            const { limit:reqLimit = 8, skip:reqSkip = 0 } = req.query;
+            const limit = parseInt(reqLimit);
+            const skip = parseInt(reqSkip);
+            const {rooms, total} = await roomService.getAllRooms(limit, skip);
             const allRooms = rooms.map(room => new RoomDTO(room))
-            res.status(200).json(allRooms);
+            res.status(200).json({allRooms, total, limit, skip});
         } catch (error) {
             res.status(500);
             throw new Error("DB Error!");

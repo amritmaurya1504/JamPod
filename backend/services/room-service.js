@@ -12,12 +12,13 @@ class RoomService {
         })
     }
 
-    getAllRooms = async (types) => {
-        const rooms = await RoomModel.find({ roomType: { $in: types } })
+    getAllRooms = async (limit, skip) => {
+        const total = await RoomModel.countDocuments();
+        const rooms = await RoomModel.find().limit(limit).skip(skip)
             .populate('speakers')
             .populate('ownerId')
 
-        return rooms;
+        return {rooms, total};
     }
 
     getRoom = async (roomId) => {

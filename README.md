@@ -17,6 +17,7 @@ Experience the fusion of live jams and insightful podcasts in one dynamic platfo
 | React             | JavaScript library for building user interfaces.   |
 | JavaScript        | High-level programming language.                   |
 | TypeScript        | Superset of JavaScript, adding static types.        |
+| React Query      | React library for efficient data fetching and caching.     |
 | Node.js           | JavaScript runtime for server-side development.    |
 | Express           | Fast, unopinionated, minimalist web framework.     |
 | MongoDB           | NoSQL database for storing application data.       |

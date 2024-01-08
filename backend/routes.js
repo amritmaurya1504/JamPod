@@ -11,7 +11,7 @@ router.route("/activate").post(authMiddleware, activateController.activate);
 router.route("/refresh").get(authController.refresh);
 router.route("/logout").post(authMiddleware, authController.logout)
 router.route("/rooms").post(authMiddleware, roomController.createRoom)
-router.route("/rooms").get(authMiddleware, roomController.index);
+router.route("/rooms").get(roomController.index);
 router.route("/rooms/:roomId").get(authMiddleware, roomController.show);
 router.route("/user/:userId").get(authMiddleware, authController.getUser);
 router.route("/user/:userId/rooms").get(authMiddleware, roomController.showUserSpecificRoom);
