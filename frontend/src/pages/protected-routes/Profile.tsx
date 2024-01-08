@@ -6,44 +6,26 @@ import { enqueueSnackbar } from 'notistack';
 import { getUser, getUserSpecificRoom } from '../../http';
 import { AxiosResponse } from 'axios';
 import { IRoom, IState } from '../../types';
-import { useSelector } from 'react-redux';
+
+import { useQuery } from '@tanstack/react-query';
 
 const Profile: React.FC = () => {
-    const { user: stateUser } = useSelector((state: any) => state.auth);
-    const { id } = useParams();
-    const navigate = useNavigate();
-    const [user, setUser] = useState<IState>();
-    const [rooms, setRooms] = useState<IRoom[]>();
+    const { id } = useParams(); // Fetching parameters from the URL
+    const navigate = useNavigate(); // Accessing navigation function
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                const { data }: AxiosResponse<IState> = await getUser(id);
-                setUser(data);
-            } catch (error: any) {
-                enqueueSnackbar(error.response.data.message, {
-                    variant: "error"
-                })
-            }
+    const { data: user } = useQuery({ // Fetching user data based on ID using React Query
+        queryKey: ["user", id], // Unique query key based on user ID
+        queryFn: async (): Promise<AxiosResponse<IState>> => { // Function to fetch user data
+            return await getUser(id); // Calling the function to get user data
         }
+    });
 
-        fetchUser();
-    }, [])
-
-    useEffect(() => {
-        const fetchRooms = async () => {
-            try {
-                const { data }: AxiosResponse<IRoom[]> = await getUserSpecificRoom(id);
-                setRooms(data);
-            } catch (error: any) {
-                enqueueSnackbar(error.response.data.message, {
-                    variant: "error"
-                })
-            }
+    const { data: rooms } = useQuery({ // Fetching user-specific rooms using React Query
+        queryKey: ["rooms", id], // Unique query key based on user ID
+        queryFn: async (): Promise<AxiosResponse<IRoom[]>> => { // Function to fetch user-specific rooms
+            return await getUserSpecificRoom(id); // Calling the function to get user-specific rooms data
         }
-
-        fetchRooms();
-    }, [])
+    });
 
     return (
         <>
@@ -54,7 +36,7 @@ const Profile: React.FC = () => {
             <div className='max-w-screen-xl mt-4 px-6 sm:px-8 lg:px-16 mx-auto grid grid-flow-row py-3 sm:py-4'>
                 <div className="">
                     <div className="flex items-center gap-3">
-                        <img onClick={() => navigate("/rooms")} className="cursor-pointer" src="/images/arrow-left.png" alt="arrow" width={15} height={17} />
+                        <img onClick={() => navigate(-1)} className="cursor-pointer" src="/images/arrow-left.png" alt="arrow" width={15} height={17} />
                         <span className={`md:text-[18px] text-[13px] font-semibold ${styles.heading}`}>Profile</span>
                     </div>
                 </div>
@@ -68,10 +50,10 @@ const Profile: React.FC = () => {
                                     borderWidth: "4px",
                                     borderStyle: "solid"
                                 }} >
-                                    <img src={user?.avatar ? user?.avatar : `/images/monkey-avatar.png`} width={30} alt="avatar" height={30} className="w-[100%] h-[100%] rounded-[50%]" />
+                                    <img src={user?.data.avatar} width={30} alt="avatar" height={30} className="w-[100%] h-[100%] rounded-[50%]" />
                                 </div>
                                 <div className='flex items-start flex-col'>
-                                    <h3 className='font-bold text-[20px]'>{user?.name}</h3>
+                                    <h3 className='font-bold text-[20px]'>{user?.data.name}</h3>
                                     <span className='text-xs text-[#c4c5c5]'>@username</span>
                                 </div>
                             </div>
@@ -98,7 +80,7 @@ const Profile: React.FC = () => {
                     {rooms && <h3 className='text-[15px] font-bold mb-4'>Rooms</h3>}
                     <div>
                         {
-                            rooms?.map((room: IRoom) => {
+                            rooms?.data.map((room: IRoom) => {
                                 return (
                                     <div className='bg-[#1d1d1d] px-8 py-4 rounded-lg cursor-pointer mb-3 flex items-center gap-3' key={room.roomId}>
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-orange-500">

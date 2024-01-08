@@ -6,30 +6,34 @@ import { TextInput, Button, Card } from "../shared";
 import { setOtp } from '../../redux/slices/userSlice';
 import { enqueueSnackbar } from 'notistack';
 import { AxiosResponse } from 'axios';
+import { useMutation } from '@tanstack/react-query';
 
 const StepEmail: React.FC<IStepsCompo> = ({ onNext }) => {
   const [emailId, setEmailId] = useState<string>('');
   const dispatch = useDispatch();
 
-  const submit = async () => {
-    if (!emailId) {
-      return;
-    }
-    // Server Request
-    try {
-      const { data }: AxiosResponse<IAuth> = await sendOtp({ email: emailId });
-
+  const sendOtpMutation = useMutation({
+    mutationFn : () => {
+      return sendOtp({email : emailId})
+    },
+    onSuccess: (data: AxiosResponse<IAuth>) => {
       if (data) {
-        dispatch(setOtp({ email: data.email, hash: data.hash }))
+        dispatch(setOtp({ email: data.data.email, hash: data.data.hash }));
       }
-
-      enqueueSnackbar(' ✅ OTP Sent !')
+      enqueueSnackbar('✅ OTP Sent!');
       onNext();
-    } catch (error: any) {
+    },
+    onError: (error: any) => {
       enqueueSnackbar(error.response?.data.message, {
-        variant: "error"
-      })
-    }
+        variant: 'error',
+      });
+    },
+  });
+
+  const submit = () => {
+    if(!emailId) return;
+
+    sendOtpMutation.mutate()
   }
 
   return (

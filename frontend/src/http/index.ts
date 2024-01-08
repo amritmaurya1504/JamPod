@@ -1,5 +1,5 @@
 import { enqueueSnackbar } from "notistack";
-import { IActivate, ICreateRoom, IEmail, IVerifyOTP } from "../types";
+import { IActivate, ICreateRoom, IEmail, IReqRoomData, IVerifyOTP } from "../types";
 import axios from "axios";
 
 
@@ -18,7 +18,7 @@ export const verifyOtp = (data: IVerifyOTP) => api.post("/api/v1/verify-otp", da
 export const activate = (data: IActivate) => api.post("/api/v1/activate", data);
 export const logout = () => api.post('/api/v1/logout');
 export const createRoom = (data: ICreateRoom) => api.post("/api/v1/rooms", data);
-export const getAllRooms = () => api.get("/api/v1/rooms");
+export const getAllRooms = (data: IReqRoomData) => api.get(`/api/v1/rooms?limit=${data.limit}&skip=${data.skip}`);
 export const getRoom = (data: string | undefined) => api.get(`/api/v1/rooms/${data}`);
 export const getUser = (data: string | undefined) => api.get(`/api/v1/user/${data}`); 
 export const getUserSpecificRoom = (data: string | undefined) => api.get(`/api/v1/user/${data}/rooms`);

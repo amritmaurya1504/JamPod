@@ -78,6 +78,11 @@ export interface IRoomCard {
   };
 }
 
+export interface IReqRoomData{
+  limit : number,
+  skip : number,
+}
+
 export interface IRoom {
   roomId: string;
   topic: string;

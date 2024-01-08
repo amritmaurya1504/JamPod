@@ -8,15 +8,21 @@ import { useEffect, useState } from "react";
 import { getRoom } from "../../../http";
 import { getBorderColor } from "../../../utils";
 import { AxiosResponse } from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 
 const SingleRoom: React.FC = () => {
     const { id: roomId } = useParams()
     const user: IState = useSelector((state: any) => state.auth.user);
-    const [room, setRoom] = useState<IRoom | null>(null)
     const { clients, provideRef, handleMute } = useWebRTC(roomId, user);
     const [isMute, setMute] = useState<boolean>(true)
     const navigate = useNavigate();
+
+    const { data:room } = useQuery({
+        queryKey : ["rooms", roomId], queryFn : async ():Promise<AxiosResponse<IRoom>> => {
+            return await getRoom(roomId);
+        }
+    })
 
     useEffect(() => {
         handleMute(isMute, user._id);
@@ -26,15 +32,6 @@ const SingleRoom: React.FC = () => {
         navigate("/rooms");
     }
 
-    useEffect(() => {
-        const fetchRoom = async () => {
-            const { data }:AxiosResponse<IRoom> = await getRoom(roomId);
-            setRoom(data);
-            console.log(data);
-        }
-
-        fetchRoom();
-    }, [roomId]);
 
     const handleMuteClick = (clientId: string) => {
         if (clientId !== user._id) return;
@@ -57,7 +54,7 @@ const SingleRoom: React.FC = () => {
             </div>
             <div className={styles.clientwrapper} >
                 <div className="flex items-center justify-between">
-                    <h2 className="text-[18px] font-semibold">{room?.topic}</h2>
+                    <h2 className="text-[18px] font-semibold">{room?.data?.topic}</h2>
                     <div className="flex items-center gap-16">
                         <button className="bg-[#262626] px-4 py-2 rounded-[20px] hover:bg-[#333333] transition-all">
                             <img src="/images/palm.png" alt="palm" width={20} height={20} />
@@ -71,7 +68,7 @@ const SingleRoom: React.FC = () => {
                 <h3 className="mt-5 text-sm text-[#888888]">Host</h3>
                 <div className={styles.clientList}>
                     {
-                        room?.speakers.map((speaker) => {
+                        room?.data?.speakers.map((speaker) => {
                             return (
                                 <div onClick={() => navigate(`/profile/${speaker.id}`)} className="flex flex-col items-center cursor-pointer" key={speaker.id}>
                                     <div className={`relative bg-[#fff8f9] w-[100px] h-[100px] rounded-[50%]`} style={{
